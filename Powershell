@@ -1,0 +1,23 @@
+# variable used to store the path of the source CSV file
+$sourceCSV = ".\SeedFile100krows.csv";
+
+# variable used to advance the number of the row from which the export starts
+$firstrow = 0 ;
+
+# counter used in names of resulting CSV files
+$counter = 1 ;
+
+# This loop will continue until the number of rows in the file are greater than $firstrow variable
+while ($firstrow -lt 99999)
+{
+
+# You may import as many rows you want the output CSV to contain starting from the $firstrow position and export of the imported content to a new csv files.
+Import-CSV $sourceCSV | select-object -skip $firstrow -first 500 | Export-CSV -NoTypeInformation ".\Feb2021_$($counter).csv" -NoClobber;
+
+# advancing the number of the row from which the export starts
+$firstrow += 500 ;
+
+# incrementing the $counter variable
+$counter++ ;
+
+}
